@@ -17,18 +17,6 @@ Mardin is a messaging package for Laravel 5.x based on Laravel Messenger.
 
 Mardin can be integrated seemlessly with your existing application.
 
-### Guided Routes
-
-The package provides routes for generating resized/cropped/dummy images. 
-- Routes are configurable you you may set any middleware and prefix you want.
-- Generated images are *cached to disk* to avoid regenerating frequently accessed images and reduce overhead.
-
-### Image file reuse
-
-For situations where different instances of models use the same image.
-- The package provides a safe removal feature which allows images to be detached and only deleted from disk if not being used elsewhere.
-- An overridable method used to determine when an image should be considered *safe* to delete. 
-
 ## Installation & Usage
 
 ### Installation
@@ -66,6 +54,26 @@ php artisan vendor:publish --provider="ReliQArts\Mardin\MardinServiceProvider" -
 ``` 
 You may publish migrations in a similar manner using the tag `migrations`.
 
+#### JS counterpart for Real-Time Messaging
+
+For real-time messaging you must install the JS counterpart via `npm` or `yarn`:
+
+```
+yarn add mardin
+```
+
+After adding the module via npm you may use as follows:
+```js
+// import mardin for use
+import Mardin from 'mardin';
+
+// ...
+
+// initialize
+let messenger = new Mardin(app);
+```
+*Note:* `app` above refers to an instance of your client-side application and is optional.
+
 ### Setup
 
 Set the desired environment variables so the package knows your user model, transformer, etc. 
@@ -76,10 +84,9 @@ MARDIN_USER_MODEL="App\\User"
 MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
 ```
 
-These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/src/config/mardin.php) file.
+These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
 
 And... it's ready! :ok_hand:
-
 ### Usage
 
 *coming soon...*

@@ -1,6 +1,6 @@
 {
     "name": "reliqarts/mardin",
-    "description": "Laravel real-time Messenger library. Uses Cmgmyr\\Messenger.",
+    "description": "Simplified real-time messaging for Laravel 5.",
     "type": "library",
     "license": "MIT",
     "authors": [
