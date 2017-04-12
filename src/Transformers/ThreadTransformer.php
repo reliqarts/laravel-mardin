@@ -3,8 +3,8 @@
 namespace ReliQArts\Mardin\Transformers;
 
 use Carbon\Carbon;
-use League\Fractal\TransformerAbstract;
 use ReliQArts\Mardin\Contracts\Thread;
+use League\Fractal\TransformerAbstract;
 use ReliQArts\Mardin\Helpers\StringHelper;
 use ReliQArts\Mardin\Contracts\UserTransformer;
 

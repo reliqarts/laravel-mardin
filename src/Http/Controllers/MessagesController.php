@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use ReliQArts\Mardin\Contracts\User;
 use ReliQArts\Mardin\Contracts\Thread;
 use ReliQArts\Mardin\Contracts\Message;
-use Illuminate\Support\Facades\Session;
 use ReliQArts\Mardin\Events\NewMessage;
 // use ReliQArts\Mardin\Events\NewMessage;
 use ReliQArts\Mardin\Contracts\Participant;
@@ -16,13 +15,12 @@ use Illuminate\Routing\Controller as BaseController;
 use ReliQArts\Mardin\Transformers\ThreadTransformer;
 use ReliQArts\Mardin\Transformers\MessageTransformer;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class MessagesController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-    
+
     /**
      * Thread model.
      * @var Thread
@@ -143,7 +141,7 @@ class MessagesController extends BaseController
      */
     public function store(Request $request)
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
@@ -190,7 +188,7 @@ class MessagesController extends BaseController
      */
     public function update(Request $request, Thread $thread)
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
@@ -232,7 +230,7 @@ class MessagesController extends BaseController
      */
     public function read(Request $request)
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
@@ -254,7 +252,7 @@ class MessagesController extends BaseController
      */
     public function unread(Request $request)
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
@@ -276,7 +274,7 @@ class MessagesController extends BaseController
      */
     public function delete(Request $request)
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
@@ -305,7 +303,7 @@ class MessagesController extends BaseController
      */
     public function inboxData(Request $request, $filter = 'all')
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
@@ -335,7 +333,7 @@ class MessagesController extends BaseController
      */
     public function threadMessagesData(Request $request, Thread $thread)
     {
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             abort(404);
         }
 
