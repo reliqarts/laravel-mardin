@@ -9,7 +9,7 @@ use ReliQArts\Mardin\Contracts\Thread as ThreadContract;
 class Thread extends MessengerThread implements ThreadContract
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function messages()
     {
@@ -27,7 +27,7 @@ class Thread extends MessengerThread implements ThreadContract
     public function participantsString($excludingUser = null, $array = false)
     {
         $participants = $this->users->map(function ($participant) use ($excludingUser) {
-            if (!$excludingUser || $excludingUser->name != $participant->name) {
+            if (! $excludingUser || $excludingUser->name != $participant->name) {
                 return $participant->name;
             }
         })->reject(function ($name) {

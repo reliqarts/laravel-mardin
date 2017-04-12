@@ -33,5 +33,5 @@ return [
     'ad' => [
         'client' => false,
         'slot_id' => false,
-    ]
+    ],
 ];

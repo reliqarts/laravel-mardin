@@ -16,7 +16,7 @@ class MardinCreateParticipantsTable extends Migration
     {
         $t = MessengerModels::table('participants');
 
-        if (!Schema::hasTable($t)) {
+        if (! Schema::hasTable($t)) {
             Schema::create($t, function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('thread_id')->unsigned();
@@ -26,7 +26,7 @@ class MardinCreateParticipantsTable extends Migration
             });
         }
 
-        if (!Schema::hasColumn($t, 'deleted_at')) {
+        if (! Schema::hasColumn($t, 'deleted_at')) {
             Schema::table($t, function (Blueprint $table) {
                 $table->softDeletes();
             });
