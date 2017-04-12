@@ -76,10 +76,9 @@ MARDIN_USER_MODEL="App\\User"
 MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
 ```
 
-These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/src/config/mardin.php) file.
+These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
 
 And... it's ready! :ok_hand:
-
 ### Usage
 
 *coming soon...*
