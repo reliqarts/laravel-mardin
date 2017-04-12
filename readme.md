@@ -72,7 +72,7 @@ import Mardin from 'mardin';
 // initialize
 let messenger = new Mardin(app);
 ```
-**Ps.** `app` above refers to an instance of your client-side application and is optional.
+*Note:* `app` above refers to an instance of your client-side application and is optional.
 
 ### Setup
 
