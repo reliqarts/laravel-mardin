@@ -2,8 +2,8 @@
 
 namespace ReliQArts\Mardin\Helpers;
 
-use Carbon\Carbon;
 use tidy;
+use Carbon\Carbon;
 
 class StringHelper
 {
@@ -43,7 +43,7 @@ class StringHelper
             }
             $openedtags = array_reverse($openedtags);
             for ($i = 0; $i < $len_opened; $i++) {
-                if (!in_array($openedtags[$i], $closedtags)) {
+                if (! in_array($openedtags[$i], $closedtags)) {
                     $value .= '</'.$openedtags[$i].'>';
                 } else {
                     unset($closedtags[array_search($openedtags[$i], $closedtags)]);

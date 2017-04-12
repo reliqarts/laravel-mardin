@@ -3,7 +3,6 @@
 namespace ReliQArts\Mardin\Transformers;
 
 use Carbon\Carbon;
-use ReliQArts\Mardin\Contracts\User;
 use ReliQArts\Mardin\Contracts\Thread;
 use League\Fractal\TransformerAbstract;
 use ReliQArts\Mardin\Contracts\Message;
