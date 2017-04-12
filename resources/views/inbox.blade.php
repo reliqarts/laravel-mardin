@@ -1,0 +1,1 @@
+<div id="{{ $miId }}" data-mardin-inbox="true"></div>

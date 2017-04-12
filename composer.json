@@ -1,0 +1,29 @@
+{
+    "name": "reliqarts/mardin",
+    "description": "Laravel real-time Messenger library. Uses Cmgmyr\\Messenger.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ReliQ",
+            "email": "reliq@reliqarts.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+		"illuminate/support": "5.*",
+        "doctrine/dbal": "^2.5",
+        "pusher/pusher-php-server": "^2.6",
+        "cmgmyr/messenger": "^2.0",
+        "league/fractal": "^0.13.0"
+    },
+    "autoload": {
+		"classmap": [
+			"database"
+		],
+		"psr-4": {
+			"Mardin\\": "src/"
+		}
+	},
+    "minimum-stability": "beta"
+}
