@@ -138,7 +138,6 @@ class MardinServiceProvider extends ServiceProvider
     public function register()
     {
         $loader = AliasLoader::getInstance();
-        $router = $this->app['router'];
 
         // Register factories...
         $this->registerEloquentFactoriesFrom(__DIR__.'/../database/factories');
@@ -148,9 +147,6 @@ class MardinServiceProvider extends ServiceProvider
 
         // Register facades...
         $loader->alias('MardinStringHelper', StringHelper::class);
-
-        // Register middleware...
-        // $router->middleware('checkIfAdmin', CheckIfAdmin::class);
 
         // Bind contracts to models
         $this->app->bind(
