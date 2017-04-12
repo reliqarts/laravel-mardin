@@ -15,8 +15,8 @@ class MardinCreateThreadsTable extends Migration
     public function up()
     {
         $t = MessengerModels::table('threads');
-        
-        if (!Schema::hasTable($t)) {
+
+        if (! Schema::hasTable($t)) {
             Schema::create($t, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('subject');
@@ -24,7 +24,7 @@ class MardinCreateThreadsTable extends Migration
             });
         }
 
-        if (!Schema::hasColumn($t, 'deleted_at')) {
+        if (! Schema::hasColumn($t, 'deleted_at')) {
             Schema::table($t, function (Blueprint $table) {
                 $table->softDeletes();
             });

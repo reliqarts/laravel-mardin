@@ -8,7 +8,6 @@ use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use ReliQArts\Mardin\Contracts\Message;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use ReliQArts\Mardin\Transformers\MessageTransformer;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
