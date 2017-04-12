@@ -4,7 +4,7 @@ Mardin is a messaging package for Laravel 5.x based on Laravel Messenger.
 
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-red.svg?style=flat-square)](http://laravel.com)
 ![Build Status](https://img.shields.io/circleci/project/reliqarts/mardin.svg?style=flat-square)
-[![StyleCI](https://styleci.io/repos/71434979/shield?branch=master)](https://styleci.io/repos/71434979)
+[![StyleCI](https://styleci.io/repos/88008918/shield?branch=master)](https://styleci.io/repos/88008918)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/reliqarts/mardin.svg?style=flat-square)](https://scrutinizer-ci.com/g/reliqarts/mardin/)
 [![License](https://poser.pugx.org/reliqarts/mardin/license?format=flat-square)](https://packagist.org/packages/reliqarts/mardin)
 [![Latest Stable Version](https://poser.pugx.org/reliqarts/mardin/version?format=flat-square)](https://packagist.org/packages/reliqarts/mardin)
