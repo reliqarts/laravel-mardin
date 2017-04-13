@@ -4,7 +4,7 @@ Mardin is a messaging package for Laravel 5.x based on Laravel Messenger.
 
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-red.svg?style=flat-square)](http://laravel.com)
 ![Build Status](https://img.shields.io/circleci/project/reliqarts/mardin.svg?style=flat-square)
-[![StyleCI](https://styleci.io/repos/71434979/shield?branch=master)](https://styleci.io/repos/71434979)
+[![StyleCI](https://styleci.io/repos/88008918/shield?branch=master)](https://styleci.io/repos/88008918)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/reliqarts/mardin.svg?style=flat-square)](https://scrutinizer-ci.com/g/reliqarts/mardin/)
 [![License](https://poser.pugx.org/reliqarts/mardin/license?format=flat-square)](https://packagist.org/packages/reliqarts/mardin)
 [![Latest Stable Version](https://poser.pugx.org/reliqarts/mardin/version?format=flat-square)](https://packagist.org/packages/reliqarts/mardin)
@@ -15,7 +15,14 @@ Mardin is a messaging package for Laravel 5.x based on Laravel Messenger.
 
 ## Key Features
 
-Mardin can be integrated seemlessly with your existing application.
+- Integrates seemlessly with your existing application.
+- Supports multi-participant conversations (threads)
+- Multiple conversations per user
+- View the last message for each thread available
+- Easily fetch all messages in the system, all messages associated to the user, or all message associated to the user with new/unread messages
+- Fetch users unread message count easily
+- Very flexible usage so you can implement your own access control
+- Supports real-time messaging via integration with Laravel Echo
 
 ## Installation & Usage
 
@@ -41,7 +48,7 @@ Once this has finished, you will need to add the service provider to the provide
 ReliQArts\Mardin\MardinServiceProvider::class,
 ```
 
-Finally, publish package resources and configuration:
+Publish package resources and configuration:
 
 ```
 php artisan vendor:publish --provider="ReliQArts\Mardin\MardinServiceProvider"
@@ -52,9 +59,58 @@ You may opt to publish only configuration by using the `config` tag:
 ```
 php artisan vendor:publish --provider="ReliQArts\Mardin\MardinServiceProvider" --tag="config"
 ``` 
-You may publish migrations in a similar manner using the tag `migrations`.
 
-#### JS counterpart for Real-Time Messaging
+Create a `users` table if you do not have one already.
+
+**(Optional)** Define names of database tables in *laravel messenger*'s config file (config/laravel-messenger) if you don't want to use default ones:
+
+```
+'messages_table' => 'messenger_messages',
+'participants_table' => 'messenger_participants',
+'threads_table' => 'messenger_threads',
+```
+
+*See:* Laravel messenger [readme](https://github.com/cmgmyr/laravel-messenger/blob/master/readme.md) for more information on Laravel Messenger setup.
+
+Run the migrations to create `messages`, `threads`, and `participant` tables.
+
+```
+php artisan migrate
+``` 
+
+#### Configuration
+
+Set the desired environment variables so the package knows your user model, transformer, etc. 
+
+Example environment config:
+```
+MARDIN_USER_MODEL="App\\User"
+MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
+```
+
+These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
+
+#### Traits & Contracts
+
+You must ensure that your user model and user transformer classes are properly set in your configuration (as shown above) and that they implement the `ReliQArts\Mardin\Contracts\User` and `ReliQArts\Mardin\Contracts\UserTransformer` contracts respectively.
+
+Your `User` model must also use the `Messagable` trait.
+
+e.g. User model:
+
+```php
+// ...
+use ReliQArts\Mardin\Traits\Messagable;
+use ReliQArts\Mardin\Contracts\User as MardinUserContract;
+
+class User extends Authenticatable implements MardinUserContract {
+    use Messagable;
+
+    // ...
+}
+```
+
+#### Real-Time Messaging
 
 For real-time messaging you must install the JS counterpart via `npm` or `yarn`:
 
@@ -67,26 +123,36 @@ After adding the module via npm you may use as follows:
 // import mardin for use
 import Mardin from 'mardin';
 
-// ...
-
 // initialize
 let messenger = new Mardin(app);
 ```
 *Note:* `app` above refers to an instance of your client-side application and is optional.
 
-### Setup
-
-Set the desired environment variables so the package knows your user model, transformer, etc. 
-
-Example environment config:
-```
-MARDIN_USER_MODEL="App\\User"
-MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
-```
-
-These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
-
 And... it's ready! :ok_hand:
+
+
 ### Usage
 
-*coming soon...*
+#### Routes
+
+The following routes are made available. For clarification you may refer to the method documentations in `ReliQArts\Mardin\Http\Controllers\MessagesController` [here](https://github.com/reliqarts/mardin/blob/master/src/Http/Controllers/MessagesController.php).
+
+```
+|        | POST                           | messages                                                           | store-message                               | ReliQArts\Mardin\Http\Controllers\MessagesController@store                           | web                                                 |
+|        | GET|HEAD                       | messages/c/unread                                                  | unread-messages-count                       | ReliQArts\Mardin\Http\Controllers\MessagesController@unreadCount                     | web                                                 |
+|        | POST                           | messages/del                                                       | unread-message                              | ReliQArts\Mardin\Http\Controllers\MessagesController@delete                          | web                                                 |
+|        | GET|HEAD                       | messages/in/{filter}.json                                          | in-threads                                  | ReliQArts\Mardin\Http\Controllers\MessagesController@inboxData                       | web                                                 |
+|        | POST                           | messages/m/new                                                     | create-message                              | ReliQArts\Mardin\Http\Controllers\MessagesController@create                          | web                                                 |
+|        | POST                           | messages/mr                                                        | read-message                                | ReliQArts\Mardin\Http\Controllers\MessagesController@read                            | web                                                 |
+|        | POST                           | messages/mur                                                       | unread-message                              | ReliQArts\Mardin\Http\Controllers\MessagesController@unread                          | web                                                 |
+|        | GET|HEAD                       | messages/t/{thread}/messages.json                                  | in-thread-messages                          | ReliQArts\Mardin\Http\Controllers\MessagesController@threadMessagesData              | web                                                 |
+|        | POST                           | messages/u/{thread}                                                | update-message                              | ReliQArts\Mardin\Http\Controllers\MessagesController@update                          | web                                                 |
+|        | GET|HEAD                       | messages/view/{thread}                                             | show-message                                | ReliQArts\Mardin\Http\Controllers\MessagesController@show                            | web                                                 |
+|        | GET|HEAD                       | messages/{type?}                                                   | messages       
+```
+
+
+---
+For more information on Laravel Messenger, check it out [here](https://github.com/cmgmyr/laravel-messenger).
+
+:beers: cheers!

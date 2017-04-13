@@ -31,7 +31,7 @@ return [
 
     // ga Ad for react component
     'ad' => [
-        'client' => false,
-        'slot_id' => false,
+        'client' => env('MARDIN_AD_CLIENT_ID', false),
+        'slot_id' => env('MARDIN_AD_SLOT_ID', false),
     ],
 ];
