@@ -152,6 +152,26 @@ The following routes are made available. For clarification you may refer to the 
 ```
 
 
+#### Authorization
+
+Mardin supports Laravel's default authorization model. To use the provided policy, map the policy in your `AuthServiceProvider` like so:
+
+```php
+use ReliQArts\Mardin\Policies\MessagePolicy;
+
+/**
+ * The policy mappings for the application.
+ *
+ * @var array
+ */
+protected $policies = [
+    // ...
+    Message::class => MessagePolicy::class,
+];
+```
+
+The policy uses the `canSendMardinMessage()` and `canReceiveMardinMessage()` methods implemented on the `User` model. These methods are enforced by `ReliQArts\Mardin\Contracts\User`.
+
 ---
 For more information on Laravel Messenger, check it out [here](https://github.com/cmgmyr/laravel-messenger).
 
