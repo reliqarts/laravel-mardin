@@ -22,7 +22,7 @@
 			"database"
 		],
 		"psr-4": {
-			"Mardin\\": "src/"
+			"ReliQArts\\Mardin\\": "src/"
 		}
 	},
     "minimum-stability": "beta"
