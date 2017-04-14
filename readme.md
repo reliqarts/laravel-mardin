@@ -157,6 +157,7 @@ The following routes are made available. For clarification you may refer to the 
 Mardin supports Laravel's default authorization model. To use the provided policy, map the policy in your `AuthServiceProvider` like so:
 
 ```php
+use App\Message; // a custom message model that extends ReliQArts\Mardin\Models\Message
 use ReliQArts\Mardin\Policies\MessagePolicy;
 
 /**
@@ -171,6 +172,26 @@ protected $policies = [
 ```
 
 The policy uses the `canSendMardinMessage()` and `canReceiveMardinMessage()` methods implemented on the `User` model. These methods are enforced by `ReliQArts\Mardin\Contracts\User`.
+
+#### Sending a Message
+
+Start a new thread by making a request to `messages/m/new` (POST).
+
+##### Sample New Message Form
+
+```php
+{!! Form::open(['route' => 'create-message']) !!}
+{!! Form::hidden('subject', "New Message") !!}
+{!! Form::hidden('recipients[]', $user->id) !!}
+<button class="btn new-message flat" title="Send a message to {{$user->name}}.">
+    <span class="icon icon-email icon-lg"></span>
+    <span>Send Message</span>
+</button>
+{!! Form::close() !!}
+```
+
+The above example uses `laravelcollective/html` to generate a HTML form which posts to the `create-message` route.
+
 
 ---
 For more information on Laravel Messenger, check it out [here](https://github.com/cmgmyr/laravel-messenger).
