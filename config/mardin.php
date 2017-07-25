@@ -16,7 +16,7 @@ return [
 
     // Set the participant model. (OPTIONAL)
     'participant_model' => env('MARDIN_PARTICIPANT_MODEL', 'ReliQArts\\Mardin\\Models\\Participant'),
-    
+
     // Set the thread model. (OPTIONAL)
     'thread_model' => env('MARDIN_THREAD_MODEL', 'ReliQArts\\Mardin\\Models\\Thread'),
 
