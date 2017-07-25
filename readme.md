@@ -110,6 +110,41 @@ class User extends Authenticatable implements MardinUserContract {
 }
 ```
 
+You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication))).
+
+e.g. Message model:
+
+```php
+use ReliQArts\Mardin\Models\Message as MardinMessage;
+
+class Message extends MardinMessage
+{
+    // ...
+}
+```
+
+e.g. Policy Implementation in `app\Providers\AuthServiceProvider.php`
+
+```php
+use App\Message;
+use ReliQArts\Mardin\Policies\MessagePolicy;
+
+// ...
+
+/**
+* The policy mappings for the application.
+*
+* @var array
+*/
+protected $policies = [
+    Message::class => MessagePolicy::class,
+    
+    // ...
+];
+
+// ...
+```
+
 #### Real-Time Messaging
 
 For real-time messaging you must install the JS counterpart via `npm` or `yarn`:

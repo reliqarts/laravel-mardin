@@ -161,17 +161,17 @@ class MardinServiceProvider extends ServiceProvider
 
         $this->app->bind(
             Contracts\Message::class,
-            Models\Message::class
+            config('mardin.message_model')
         );
 
         $this->app->bind(
             Contracts\Thread::class,
-            Models\Thread::class
+            config('mardin.thread_model')
         );
 
         $this->app->bind(
             Contracts\Participant::class,
-            Models\Participant::class
+            config('mardin.participant_model')
         );
     }
 
