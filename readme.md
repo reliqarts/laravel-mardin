@@ -123,28 +123,6 @@ class Message extends MardinMessage
 }
 ```
 
-e.g. Policy Implementation in `app\Providers\AuthServiceProvider.php`
-
-```php
-use App\Message;
-use ReliQArts\Mardin\Policies\MessagePolicy;
-
-// ...
-
-/**
-* The policy mappings for the application.
-*
-* @var array
-*/
-protected $policies = [
-    Message::class => MessagePolicy::class,
-    
-    // ...
-];
-
-// ...
-```
-
 #### Real-Time Messaging
 
 For real-time messaging you must install the JS counterpart via `npm` or `yarn`:
