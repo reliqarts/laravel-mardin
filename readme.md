@@ -110,7 +110,7 @@ class User extends Authenticatable implements MardinUserContract {
 }
 ```
 
-You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication))).
+You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication)).
 
 e.g. Message model:
 
