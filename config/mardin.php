@@ -10,6 +10,16 @@ return [
     // Set the user model transformer.
     'user_transformer' => env('MARDIN_USER_TRANSFORMER', 'App\\Transformers\\UserTransformer'),
 
+    // Set the message model. (ENCOURAGED)
+    // Set this to your customized message model so the correct policy (Laravel Guard) is invoked.
+    'message_model' => env('MARDIN_MESSAGE_MODEL', 'ReliQArts\\Mardin\\Models\\Message'),
+
+    // Set the participant model. (OPTIONAL)
+    'participant_model' => env('MARDIN_PARTICIPANT_MODEL', 'ReliQArts\\Mardin\\Models\\Participant'),
+    
+    // Set the thread model. (OPTIONAL)
+    'thread_model' => env('MARDIN_THREAD_MODEL', 'ReliQArts\\Mardin\\Models\\Thread'),
+
     // Route related options.
     'routes' => [
         // Set the prefix that should be used for routes

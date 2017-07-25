@@ -70,7 +70,7 @@ class MessagesController extends BaseController
      */
     public function index()
     {
-        $this->authorize('receive', Message::class);
+        $this->authorize('receive', resolve(Message::class));
 
         $currentUserId = auth()->user()->id;
         $title = 'Inbox';
@@ -89,7 +89,7 @@ class MessagesController extends BaseController
      */
     public function show(Thread $thread)
     {
-        $this->authorize('receive', Message::class);
+        $this->authorize('receive', resolve(Message::class));
 
         // don't show the current user in list
         $userId = auth()->user()->id;
@@ -109,7 +109,7 @@ class MessagesController extends BaseController
      */
     public function create(Request $request)
     {
-        $this->authorize('send', Message::class);
+        $this->authorize('send', resolve(Message::class));
 
         $users = $this->users->where('id', '!=', auth()->id())->get();
         $title = $request->subject ?: 'New Conversation';
@@ -145,7 +145,7 @@ class MessagesController extends BaseController
             abort(404);
         }
 
-        $this->authorize('send', Message::class);
+        $this->authorize('send', resolve(Message::class));
 
         $thread = $this->threads->create([
             'subject' => $request->subject,
@@ -192,7 +192,7 @@ class MessagesController extends BaseController
             abort(404);
         }
 
-        $this->authorize('send', Message::class);
+        $this->authorize('send', resolve(Message::class));
 
         $thread->activateAllParticipants();
 

@@ -110,6 +110,41 @@ class User extends Authenticatable implements MardinUserContract {
 }
 ```
 
+You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication)).
+
+e.g. Message model:
+
+```php
+use ReliQArts\Mardin\Models\Message as MardinMessage;
+
+class Message extends MardinMessage
+{
+    // ...
+}
+```
+
+e.g. Policy Implementation in `app\Providers\AuthServiceProvider.php`
+
+```php
+use App\Message;
+use ReliQArts\Mardin\Policies\MessagePolicy;
+
+// ...
+
+/**
+* The policy mappings for the application.
+*
+* @var array
+*/
+protected $policies = [
+    Message::class => MessagePolicy::class,
+    
+    // ...
+];
+
+// ...
+```
+
 #### Real-Time Messaging
 
 For real-time messaging you must install the JS counterpart via `npm` or `yarn`:
@@ -150,6 +185,47 @@ The following routes are made available. For clarification you may refer to the 
 |        | GET|HEAD                       | messages/view/{thread}                                             | show-message                                | ReliQArts\Mardin\Http\Controllers\MessagesController@show                            | web                                                 |
 |        | GET|HEAD                       | messages/{type?}                                                   | messages       
 ```
+
+
+#### Authorization
+
+Mardin supports Laravel's default authorization model. To use the provided policy, map the policy in your `AuthServiceProvider` like so:
+
+```php
+use App\Message; // a custom message model that extends ReliQArts\Mardin\Models\Message
+use ReliQArts\Mardin\Policies\MessagePolicy;
+
+/**
+ * The policy mappings for the application.
+ *
+ * @var array
+ */
+protected $policies = [
+    // ...
+    Message::class => MessagePolicy::class,
+];
+```
+
+The policy uses the `canSendMardinMessage()` and `canReceiveMardinMessage()` methods implemented on the `User` model. These methods are enforced by `ReliQArts\Mardin\Contracts\User`.
+
+#### Sending a Message
+
+Start a new thread by making a request to `messages/m/new` (POST).
+
+##### Sample New Message Form
+
+```php
+{!! Form::open(['route' => 'create-message']) !!}
+{!! Form::hidden('subject', "New Message") !!}
+{!! Form::hidden('recipients[]', $user->id) !!}
+<button class="btn new-message flat" title="Send a message to {{$user->name}}.">
+    <span class="icon icon-email icon-lg"></span>
+    <span>Send Message</span>
+</button>
+{!! Form::close() !!}
+```
+
+The above example uses `laravelcollective/html` to generate a HTML form which posts to the `create-message` route.
 
 
 ---
