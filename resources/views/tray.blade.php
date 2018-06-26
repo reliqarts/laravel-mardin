@@ -16,7 +16,7 @@ if (auth()->check()) {
 ?>
 
 <div 
-    id="{{ $miId }}"
+    id="{{ $miId ?: 'mardin-inbox-tray' }}"
     data-mardin-inbox-tray="true"
     data-mardin-user="{{ $mardinUserId }}"
     data-mardin-base="{{ $mardinBase }}"

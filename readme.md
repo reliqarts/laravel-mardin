@@ -78,68 +78,83 @@ Run the migrations to create `messages`, `threads`, and `participant` tables.
 php artisan migrate
 ``` 
 
-#### Configuration
+### Configuration
 
-Set the desired environment variables so the package knows your user model, transformer, etc. 
+- Ensure your application is properly configured for **[broadcasting](https://laravel.com/docs/5.5/broadcasting/)**.
 
-Example environment config:
-```
-MARDIN_USER_MODEL="App\\User"
-MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
-```
+- Set the desired environment variables so the package knows your user model, transformer, desired views, etc. 
 
-These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
+    Example environment config:
+    ```ini
+    MARDIN_USER_MODEL="App\\User"
+    MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
+    MARDIN_VIEW_WRAPPER_INDEX="messages.index"
+    MARDIN_VIEW_WRAPPER_SHOW="messages.show"
+    ```
 
-#### Traits & Contracts
+    These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
 
-You must ensure that your user model and user transformer classes are properly set in your configuration (as shown above) and that they implement the `ReliQArts\Mardin\Contracts\User` and `ReliQArts\Mardin\Contracts\UserTransformer` contracts respectively.
+- Include the **mardin tray** (message notification area) somewhere within your layout to initialize mardin. The mardin tray provides initialization parameters to Mardin's JS counterpart. (without these Mardin will not be initialized)
 
-Your `User` model must also use the `Messagable` trait.
+    Example inclusion in `resources/views/layouts/app.blade.php`:
+    ```php
+    // ...
 
-e.g. User model:
-
-```php
-// ...
-use ReliQArts\Mardin\Traits\Messagable;
-use ReliQArts\Mardin\Contracts\User as MardinUserContract;
-
-class User extends Authenticatable implements MardinUserContract {
-    use Messagable;
+    @include('mardin::tray', ['miId' => 'mardin-inbox-tray'])
 
     // ...
-}
-```
+    ```
 
-You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication)).
+- #### Traits & Contracts
 
-e.g. Message model:
+    You must ensure that your user model and user transformer classes are properly set in your configuration (as shown above) and that they implement the `ReliQArts\Mardin\Contracts\User` and `ReliQArts\Mardin\Contracts\UserTransformer` contracts respectively.
 
-```php
-use ReliQArts\Mardin\Models\Message as MardinMessage;
+    Your `User` model must also use the `Messagable` trait.
 
-class Message extends MardinMessage
-{
+    e.g. User model:
+
+    ```php
     // ...
-}
-```
+    use ReliQArts\Mardin\Traits\Messagable;
+    use ReliQArts\Mardin\Contracts\User as MardinUserContract;
 
-#### Real-Time Messaging
+    class User extends Authenticatable implements MardinUserContract {
+        use Messagable;
 
-For real-time messaging you must install the JS counterpart via `npm` or `yarn`:
+        // ...
+    }
+    ```
 
-```
-yarn add mardin
-```
+    You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication)).
 
-After adding the module via npm you may use as follows:
-```js
-// import mardin for use
-import Mardin from 'mardin';
+    e.g. Message model:
 
-// initialize
-let messenger = new Mardin(app);
-```
-*Note:* `app` above refers to an instance of your client-side application and is optional.
+    ```php
+    use ReliQArts\Mardin\Models\Message as MardinMessage;
+
+    class Message extends MardinMessage
+    {
+        // ...
+    }
+    ```
+
+- #### Client-side Config
+
+    Install the JS counterpart via `npm` or `yarn`:
+
+    ```
+    npm i mardin
+    ```
+
+    After adding the module via npm you may use as follows:
+    ```js
+    // import mardin for use
+    import Mardin from 'mardin';
+
+    // initialize
+    let messenger = new Mardin(app);
+    ```
+    *Note:* `app` above refers to an instance of your client-side application and is optional.
 
 And... it's ready! :ok_hand:
 

@@ -44,4 +44,21 @@ return [
         'client' => env('MARDIN_AD_CLIENT_ID', false),
         'slot_id' => env('MARDIN_AD_SLOT_ID', false),
     ],
+
+    // view options
+    'views' => [
+        // view wrappers
+        'wrappers' => [
+            'index' => env('MARDIN_VIEW_WRAPPER_INDEX', 'mardin::wrappers.index'),
+            'show' => env('MARDIN_VIEW_WRAPPER_SHOW', 'mardin::wrappers.show'),
+        ],
+
+        // NB.  Master template and section config below are only applicable if using the default wrappers above.
+
+        // master layout template
+        'master_template' => env('MARDIN_VIEW_MASTER_TEMPLATE', 'layouts.app'),
+
+        // section in master template where content should be placed
+        'master_section' => env('MARDIN_VIEW_MASTER_SECTION', 'content'),
+    ],
 ];

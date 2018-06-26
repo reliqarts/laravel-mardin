@@ -78,7 +78,7 @@ class MessagesController extends BaseController
         // All threads that user is participating in
         $threads = $this->threads->forUser($currentUserId)->get();
 
-        return view('messages.index', compact('threads', 'currentUserId', 'title'));
+        return view(config('mardin.views.wrappers.index'), compact('threads', 'currentUserId', 'title'));
     }
 
     /**
@@ -99,7 +99,7 @@ class MessagesController extends BaseController
         $thread->markAsRead($userId);
         unset($thread->deleted_at);
 
-        return view('messages.show', compact('thread', 'users', 'title'));
+        return view(config('mardin.views.wrappers.show'), compact('thread', 'users', 'title'));
     }
 
     /**
