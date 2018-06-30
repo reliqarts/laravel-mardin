@@ -82,11 +82,11 @@ class StringHelper
         if (count($array) <= $wordsreturned) {
             /*  Already short enough, return the whole thing
         */
-        $retval = $string;
+            $retval = $string;
         } else {
             /*  Need to chop of some words
         */
-        array_splice($array, $wordsreturned);
+            array_splice($array, $wordsreturned);
             $retval = implode(' ', $array);
             $retval .= $suffix;
         }
