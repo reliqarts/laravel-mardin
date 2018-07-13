@@ -29,7 +29,7 @@ return [
         'bindings' => [
             // public
             'public' => [
-                'middleware' => ['web', 'auth']
+                'middleware' => ['web', 'auth'],
             ],
 
             // admin
