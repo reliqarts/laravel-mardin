@@ -82,6 +82,15 @@ php artisan migrate
 
 - Ensure your application is properly configured for **[broadcasting](https://laravel.com/docs/5.5/broadcasting/)**.
 
+- Ensure your application defines the `<base>` tag in its `<head>`
+    
+    e.g.
+    ```html
+    <base href="http://myapp.url">
+    ```
+
+    This is used alongside *mardinBase* for routing. See: https://www.w3schools.com/tags/tag_base.asp
+
 - Set the desired environment variables so the package knows your user model, transformer, desired views, etc. 
 
     Example environment config:

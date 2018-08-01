@@ -1,9 +1,12 @@
-<?php
-$mardinBase = $mardinUserId = '';
+@php
+$mardinBase = '';
+$mardinAd = false;
+$mardinUserId = '';
+$miId = empty($miId) ? 'mardin-inbox-tray' : $miId;
+
 if (auth()->check()) {
     $mardinUserId = auth()->user()->id;
     $mardinBase = basename(route('messages'));
-    $mardinAd = false;
 
     if ($mardinAdClient = config('mardin.ad.client')) {
         $mardinAd = true;
@@ -13,13 +16,12 @@ if (auth()->check()) {
         ];
     }
 }
-?>
+@endphp
 
 <div 
-    id="{{ $miId ?: 'mardin-inbox-tray' }}"
+    id="{{ $miId }}"
     data-mardin-inbox-tray="true"
     data-mardin-user="{{ $mardinUserId }}"
-    data-mardin-base="{{ $mardinBase }}"
     data-mardin-base="{{ $mardinBase }}"
     data-mardin-ad="{{ is_array($mardinAd) ? json_encode($mardinAd) : false }}"
     ></div>

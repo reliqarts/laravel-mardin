@@ -93,8 +93,18 @@ class MessagesController extends BaseController
 
         // don't show the current user in list
         $userId = auth()->user()->id;
-        $users = $this->users->whereNotIn('id', $thread->participantsUserIds($userId))->get();
+        $otherUsersIds = array_except($thread->participantsUserIds(), [$userId]);
+        $users = $this->users->whereIn('id', $otherUsersIds)->get();
         $title = "{$thread->subject} &mdash; Inbox";
+
+        if (!$users->count()) {
+            $errorMessage = 'Could not load thread. Participants error.';
+            return redirect()->back()->with([
+                'message' => $errorMessage,
+                'error' => $errorMessage,
+                'status' => $errorMessage,
+            ]);
+        }
 
         $thread->markAsRead($userId);
         unset($thread->deleted_at);
@@ -130,7 +140,7 @@ class MessagesController extends BaseController
             }
         }
 
-        return view('messages.show', compact('users', 'title', 'recipients', 'subject', 'infoLine'));
+        return view(config('mardin.views.wrappers.show'), compact('users', 'title', 'recipients', 'subject', 'infoLine'));
     }
 
     /**

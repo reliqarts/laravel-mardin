@@ -1,3 +1,7 @@
+@php
+$miId = empty($miId) ? 'mardin-inbox-thread' : $miId;
+@endphp
+
 <div id="{{ $miId }}" 
     data-mardin-inbox-thread="true"
     @if (isset($thread))
