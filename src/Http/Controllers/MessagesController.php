@@ -97,8 +97,9 @@ class MessagesController extends BaseController
         $users = $this->users->whereIn('id', $otherUsersIds)->get();
         $title = "{$thread->subject} &mdash; Inbox";
 
-        if (!$users->count()) {
+        if (! $users->count()) {
             $errorMessage = 'Could not load thread. Participants error.';
+
             return redirect()->back()->with([
                 'message' => $errorMessage,
                 'error' => $errorMessage,
