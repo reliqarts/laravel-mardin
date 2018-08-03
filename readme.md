@@ -77,68 +77,105 @@ Run the migrations to create `messages`, `threads`, and `participant` tables.
 php artisan migrate
 ``` 
 
-#### Configuration
+### Configuration
 
-Set the desired environment variables so the package knows your user model, transformer, etc. 
+- Set the message model, participant model and thread model in *laravel messenger*'s config file (config/laravel-messenger) to the provided Mardin models, or your custom models that extend these. 
 
-Example environment config:
-```
-MARDIN_USER_MODEL="App\\User"
-MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
-```
+    e.g.
+    ```
+    'message_model' => ReliQArts\Mardin\Models\Message::class,
 
-These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
+    'participant_model' => ReliQArts\Mardin\Models\Participant::class,
 
-#### Traits & Contracts
+    'thread_model' => ReliQArts\Mardin\Models\Thread::class,
+    ```
 
-You must ensure that your user model and user transformer classes are properly set in your configuration (as shown above) and that they implement the `ReliQArts\Mardin\Contracts\User` and `ReliQArts\Mardin\Contracts\UserTransformer` contracts respectively.
+- Ensure your application is properly configured for **[broadcasting](https://laravel.com/docs/5.5/broadcasting/)**.
 
-Your `User` model must also use the `Messagable` trait.
+- Ensure your application defines the `<base>` tag in its `<head>`
+    
+    e.g.
+    ```html
+    <base href="http://myapp.url">
+    ```
 
-e.g. User model:
+    This is used alongside *mardinBase* for routing. See: https://www.w3schools.com/tags/tag_base.asp
 
-```php
-// ...
-use ReliQArts\Mardin\Traits\Messagable;
-use ReliQArts\Mardin\Contracts\User as MardinUserContract;
+- Set the desired environment variables so the package knows your user model, transformer, desired views, etc. 
 
-class User extends Authenticatable implements MardinUserContract {
-    use Messagable;
+    Example environment config:
+    ```ini
+    MARDIN_USER_MODEL="App\\User"
+    MARDIN_USER_TRANSFORMER="App\\Transformers\\UserTransformer"
+    MARDIN_VIEW_WRAPPER_INDEX="messages.index"
+    MARDIN_VIEW_WRAPPER_SHOW="messages.show"
+    ```
+
+    These variables, and more are explained within the [config](https://github.com/ReliQArts/mardin/blob/master/config/mardin.php) file.
+
+- Include the **mardin tray** (message notification area) somewhere within your layout to initialize mardin. The mardin tray provides initialization parameters to Mardin's JS counterpart. (without these Mardin will not be initialized)
+
+    Example inclusion in `resources/views/layouts/app.blade.php`:
+    ```php
+    // ...
+
+    @include('mardin::tray', ['miId' => 'mardin-inbox-tray'])
 
     // ...
-}
-```
+    ```
 
-You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication)).
+- #### Traits & Contracts
 
-e.g. Message model:
+    You must ensure that your user model and user transformer classes are properly set in your configuration (as shown above) and that they implement the `ReliQArts\Mardin\Contracts\User` and `ReliQArts\Mardin\Contracts\UserTransformer` contracts respectively.
 
-```php
-use ReliQArts\Mardin\Models\Message as MardinMessage;
+    Your `User` model must also use the `Messagable` trait.
 
-class Message extends MardinMessage
-{
+    e.g. User model:
+
+    ```php
     // ...
-}
-```
+    use ReliQArts\Mardin\Traits\Messagable;
+    use ReliQArts\Mardin\Contracts\User as MardinUserContract;
 
-#### Real-Time Messaging
+    class User extends Authenticatable implements MardinUserContract {
+        use Messagable;
 
-For real-time messaging you must install the JS counterpart via `npm` or `yarn`:
+        // ...
+    }
+    ```
 
-```
-yarn add mardin
-```
+    You may also extend the Message, Participant, and Thread models. Extending the `Message` model is encouraged since you may very well wish to add a specific policy for security (via [Laravel Guard](https://laravel.com/docs/5.4/authentication)).
 
-After adding the module via npm you may use as follows:
-```js
-// import mardin for use
-import Mardin from 'mardin';
+    e.g. Message model:
 
-// initialize
-let messenger = new Mardin(app);
-```
-*Note:* `app` above refers to an instance of your client-side application and is optional.
+    ```php
+    use ReliQArts\Mardin\Models\Message as MardinMessage;
+
+    class Message extends MardinMessage
+    {
+        // ...
+    }
+    ```
+
+    **NB:** Remember to update *laravel messenger*'s config file (config/laravel-messenger) to reflect these.
+
+- #### Client-side Config
+
+    Install the JS counterpart via `npm` or `yarn`:
+
+    ```
+    npm i mardin
+    ```
+
+    After adding the module via npm you may use as follows:
+    ```js
+    // import mardin for use
+    import Mardin from 'mardin';
+
+    // initialize
+    let messenger = new Mardin(app);
+    ```
+    *Note:* `app` above refers to an instance of your client-side application and is optional.
 
 And... it's ready! :ok_hand:
 
