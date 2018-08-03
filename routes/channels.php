@@ -11,6 +11,6 @@
 |
 */
 
-Broadcast::channel('App.User.*.Messages', function ($user, $id) {
+Broadcast::channel('Mardin.Messages.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });

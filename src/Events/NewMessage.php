@@ -45,6 +45,16 @@ class NewMessage implements ShouldBroadcast
     }
 
     /**
+     * The event's broadcast name.
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'newMessage';
+    }
+
+    /**
      * Get the channels the event should broadcast on.
      *
      * @return Channel|array
@@ -56,7 +66,7 @@ class NewMessage implements ShouldBroadcast
             if ($recipient == $this->message->user->id) {
                 continue;
             }
-            $this->channels[] = new PrivateChannel("App.User.{$recipient}.Messages");
+            $this->channels[] = new PrivateChannel("Mardin.Messages.User.{$recipient}");
         }
 
         // Set Message as Fractal Item

@@ -80,6 +80,17 @@ php artisan migrate
 
 ### Configuration
 
+- Set the message model, participant model and thread model in *laravel messenger*'s config file (config/laravel-messenger) to the provided Mardin models, or your custom models that extend these. 
+
+    e.g.
+    ```
+    'message_model' => ReliQArts\Mardin\Models\Message::class,
+
+    'participant_model' => ReliQArts\Mardin\Models\Participant::class,
+
+    'thread_model' => ReliQArts\Mardin\Models\Thread::class,
+    ```
+
 - Ensure your application is properly configured for **[broadcasting](https://laravel.com/docs/5.5/broadcasting/)**.
 
 - Ensure your application defines the `<base>` tag in its `<head>`
@@ -146,6 +157,8 @@ php artisan migrate
         // ...
     }
     ```
+
+    **NB:** Remember to update *laravel messenger*'s config file (config/laravel-messenger) to reflect these.
 
 - #### Client-side Config
 
