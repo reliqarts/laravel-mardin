@@ -42,7 +42,7 @@ or require in *composer.json*:
 ```
 then run `composer update` in your terminal to pull it in.
 
-Once this has finished, you will need to add the service provider to the providers array in your app.php config as follows:
+If you are using Laravel v5.4 or lower, you will need to add the service provider to the providers array in your app.php config as follows:
 
 ```php
 ReliQArts\Mardin\MardinServiceProvider::class,
