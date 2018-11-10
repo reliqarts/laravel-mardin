@@ -3,10 +3,10 @@
 namespace ReliQArts\Mardin\Transformers;
 
 use Carbon\Carbon;
-use ReliQArts\Mardin\Contracts\Thread;
 use League\Fractal\TransformerAbstract;
-use ReliQArts\Mardin\Helpers\StringHelper;
+use ReliQArts\Mardin\Contracts\Thread;
 use ReliQArts\Mardin\Contracts\UserTransformer;
+use ReliQArts\Mardin\Helpers\StringHelper;
 
 class ThreadTransformer extends TransformerAbstract
 {
@@ -31,7 +31,8 @@ class ThreadTransformer extends TransformerAbstract
 
     /**
      * Transform the data.
-     * @return array API suitable information.
+     *
+     * @return array API suitable information
      */
     public function transform(Thread $thread)
     {
@@ -62,12 +63,13 @@ class ThreadTransformer extends TransformerAbstract
      * Include Messages.
      *
      * @param Thread $thread
+     *
      * @return \League\Fractal\Resource\Collection
      */
     public function includeMessages(Thread $thread)
     {
         if ($messages = $thread->messages) {
-            return $this->collection($messages, new MessageTransformer);
+            return $this->collection($messages, new MessageTransformer());
         }
     }
 
@@ -75,12 +77,13 @@ class ThreadTransformer extends TransformerAbstract
      * Include unread Messages.
      *
      * @param Thread $thread
+     *
      * @return \League\Fractal\Resource\Collection
      */
     public function includeUnreadMessages(Thread $thread)
     {
         if ($messages = $thread->userUnreadMessages(auth()->user()->id)) {
-            return $this->collection($messages, new MessageTransformer);
+            return $this->collection($messages, new MessageTransformer());
         }
     }
 
@@ -88,12 +91,13 @@ class ThreadTransformer extends TransformerAbstract
      * Include last Message.
      *
      * @param Thread $thread
+     *
      * @return \League\Fractal\Resource\Item
      */
     public function includeLatestMessage(Thread $thread)
     {
         if ($message = $thread->latestMessage) {
-            return $this->item($message, new MessageTransformer);
+            return $this->item($message, new MessageTransformer());
         }
     }
 
@@ -101,12 +105,13 @@ class ThreadTransformer extends TransformerAbstract
      * Include Participants.
      *
      * @param Thread $thread
+     *
      * @return \League\Fractal\Resource\Collection
      */
     public function includeParticipants(Thread $thread)
     {
         if ($participants = $thread->users) {
-            return $this->collection($participants, new UserTransformer);
+            return $this->collection($participants, new UserTransformer());
         }
     }
 }

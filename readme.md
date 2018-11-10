@@ -207,7 +207,7 @@ Mardin supports Laravel's default authorization model. To use the provided polic
 
 ```php
 use App\Message; // a custom message model that extends ReliQArts\Mardin\Models\Message
-use ReliQArts\Mardin\Policies\MessagePolicy;
+use ReliQArts\Mardin\Policies\Message as MessagePolicy;
 
 /**
  * The policy mappings for the application.

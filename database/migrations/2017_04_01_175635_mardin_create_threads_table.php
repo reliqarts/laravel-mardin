@@ -1,22 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
 use Cmgmyr\Messenger\Models\Models as MessengerModels;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class MardinCreateThreadsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         $t = MessengerModels::table('threads');
 
-        if (! Schema::hasTable($t)) {
+        if (!Schema::hasTable($t)) {
             Schema::create($t, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('subject');
@@ -24,7 +22,7 @@ class MardinCreateThreadsTable extends Migration
             });
         }
 
-        if (! Schema::hasColumn($t, 'deleted_at')) {
+        if (!Schema::hasColumn($t, 'deleted_at')) {
             Schema::table($t, function (Blueprint $table) {
                 $table->softDeletes();
             });
@@ -33,8 +31,6 @@ class MardinCreateThreadsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

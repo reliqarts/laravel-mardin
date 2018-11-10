@@ -9,7 +9,7 @@ class RouteHelper
     /**
      * Get route prefix for mardin routes.
      *
-     * @return string Prefix.
+     * @return string prefix
      */
     public static function getRoutePrefix()
     {
@@ -19,7 +19,7 @@ class RouteHelper
     /**
      * Get controller for mardin routes.
      *
-     * @return string Controller.
+     * @return string controller
      */
     public static function getMessagesController()
     {
@@ -28,10 +28,13 @@ class RouteHelper
 
     /**
      * Get bindings for public routes.
+     *
+     * @param mixed $bindings
+     * @param mixed $groupKey
      */
     public static function getRouteGroupBindings($bindings = [], $groupKey = 'public')
     {
-        $defaults = ($groupKey == 'public') ? ['prefix' => self::getRoutePrefix()] : [];
+        $defaults = ($groupKey === 'public') ? ['prefix' => self::getRoutePrefix()] : [];
         $bindings = array_merge(Config::get("mardin.routes.bindings.{$groupKey}", []), $bindings);
 
         return array_merge($defaults, $bindings);

@@ -2,8 +2,8 @@
 
 namespace ReliQArts\Mardin\Models;
 
-use ModelNotFoundException;
 use Cmgmyr\Messenger\Models\Thread as MessengerThread;
+use ModelNotFoundException;
 use ReliQArts\Mardin\Contracts\Thread as ThreadContract;
 
 class Thread extends MessengerThread implements ThreadContract
@@ -19,15 +19,15 @@ class Thread extends MessengerThread implements ThreadContract
     /**
      * Generates a string of participant information.
      *
-     * @param User  $excludingUser User to be excluded from string.
-     * @param bool  $array Whether an array should be returned.
+     * @param User $excludingUser user to be excluded from string
+     * @param bool $array         whether an array should be returned
      *
      * @return string
      */
     public function participantsString($excludingUser = null, $array = false)
     {
         $participants = $this->users->map(function ($participant) use ($excludingUser) {
-            if (! $excludingUser || $excludingUser->name != $participant->name) {
+            if (!$excludingUser || $excludingUser->name !== $participant->name) {
                 return $participant->name;
             }
         })->reject(function ($name) {

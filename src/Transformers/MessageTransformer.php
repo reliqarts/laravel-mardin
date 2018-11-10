@@ -3,11 +3,11 @@
 namespace ReliQArts\Mardin\Transformers;
 
 use Carbon\Carbon;
-use ReliQArts\Mardin\Contracts\Thread;
 use League\Fractal\TransformerAbstract;
 use ReliQArts\Mardin\Contracts\Message;
-use ReliQArts\Mardin\Helpers\StringHelper;
+use ReliQArts\Mardin\Contracts\Thread;
 use ReliQArts\Mardin\Contracts\UserTransformer;
+use ReliQArts\Mardin\Helpers\StringHelper;
 
 class MessageTransformer extends TransformerAbstract
 {
@@ -31,7 +31,8 @@ class MessageTransformer extends TransformerAbstract
 
     /**
      * Transform the data.
-     * @return array API suitable information.
+     *
+     * @return array API suitable information
      */
     public function transform(Message $message)
     {
@@ -54,6 +55,7 @@ class MessageTransformer extends TransformerAbstract
      * Include Sender.
      *
      * @param Message $message
+     *
      * @return \League\Fractal\Resource\Item
      */
     public function includeSender(Message $message)
@@ -68,12 +70,13 @@ class MessageTransformer extends TransformerAbstract
      * Include Thread.
      *
      * @param Message $message
+     *
      * @return \League\Fractal\Resource\Item
      */
     public function includeThread(Message $message)
     {
         if ($thread = $message->thread) {
-            return $this->item($thread, new ThreadTransformer);
+            return $this->item($thread, new ThreadTransformer());
         }
     }
 }

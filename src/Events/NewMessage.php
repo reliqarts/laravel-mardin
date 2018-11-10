@@ -2,15 +2,15 @@
 
 namespace ReliQArts\Mardin\Events;
 
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Queue\SerializesModels;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
 use ReliQArts\Mardin\Contracts\Message;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use ReliQArts\Mardin\Transformers\MessageTransformer;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NewMessage implements ShouldBroadcast
 {
@@ -24,19 +24,17 @@ class NewMessage implements ShouldBroadcast
     public $broadcastQueue = 'mardin';
 
     /**
-     * @var array Channels for message.
-     */
-    private $channels;
-
-    /**
-     * @var Message Message.
+     * @var Message message
      */
     public $message;
 
     /**
+     * @var array channels for message
+     */
+    private $channels;
+
+    /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct(Message $message)
     {
@@ -57,22 +55,22 @@ class NewMessage implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return array|Channel
      */
     public function broadcastOn()
     {
         // Get channels for Broadcast
         foreach ($this->message->thread->participantsUserIds() as $recipient) {
-            if ($recipient == $this->message->user->id) {
+            if ($recipient === $this->message->user->id) {
                 continue;
             }
             $this->channels[] = new PrivateChannel("Mardin.Messages.User.{$recipient}");
         }
 
         // Set Message as Fractal Item
-        $fractal = new Manager;
+        $fractal = new Manager();
         $fractal->parseIncludes('thread');
-        $this->message = $fractal->createData(new Item($this->message, new MessageTransformer))->toArray();
+        $this->message = $fractal->createData(new Item($this->message, new MessageTransformer()))->toArray();
 
         return $this->channels;
     }

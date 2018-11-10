@@ -2,27 +2,25 @@
 
 namespace ReliQArts\Mardin\Policies;
 
-use ReliQArts\Mardin\Contracts\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use ReliQArts\Mardin\Contracts\User;
 
-class MessagePolicy
+class Message
 {
     use HandlesAuthorization;
 
     /**
      * Create a new policy instance.
-     *
-     * @return void
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Determine if a User can send a message.
      *
-     * @param  User $user
+     * @param User $user
+     *
      * @return bool
      */
     public function send(User $user)
@@ -33,7 +31,8 @@ class MessagePolicy
     /**
      * Determine if a User can receive a message.
      *
-     * @param  User  $user
+     * @param User $user
+     *
      * @return bool
      */
     public function receive(User $user)

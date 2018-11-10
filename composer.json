@@ -3,6 +3,7 @@
     "description": "Simplified real-time messaging for Laravel 5.",
     "type": "library",
     "license": "MIT",
+    "version": "1.0.1-beta",
     "authors": [
         {
             "name": "ReliQ",
