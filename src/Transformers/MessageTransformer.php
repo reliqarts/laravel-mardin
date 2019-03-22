@@ -46,7 +46,8 @@ class MessageTransformer extends TransformerAbstract
             'deleted' => $message->deleted_at,
             'created_at' => StringHelper::date(Carbon::createFromFormat('Y-n-j G:i:s', $message->created_at)),
             'created_at_raw' => $message->created_at,
-            'updated_at' => $message->updated_at ? StringHelper::date(Carbon::createFromFormat('Y-n-j G:i:s', $message->updated_at)) : 'N/A',
+            'updated_at' => $message->updated_at
+                ? StringHelper::date(Carbon::createFromFormat('Y-n-j G:i:s', $message->updated_at)) : 'N/A',
             'updated_at_raw' => $message->updated_at,
         ];
     }

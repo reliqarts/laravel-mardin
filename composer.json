@@ -1,41 +1,43 @@
 {
-    "name": "reliqarts/mardin",
-    "description": "Simplified real-time messaging for Laravel 5.",
-    "type": "library",
-    "license": "MIT",
-    "version": "1.0.1-beta",
-    "authors": [
-        {
-            "name": "ReliQ",
-            "email": "reliq@reliqarts.com"
-        }
+  "name": "reliqarts/mardin",
+  "description": "Simplified real-time messaging for Laravel 5.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ReliQ",
+      "email": "reliq@reliqarts.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "illuminate/support": "^5.5",
+    "doctrine/dbal": "^2.5",
+    "pusher/pusher-php-server": "^3.0",
+    "cmgmyr/messenger": "^2.0",
+    "league/fractal": "^0.13.0"
+  },
+  "autoload": {
+    "classmap": [
+      "database"
     ],
-    "require": {
-        "php": ">=7.0",
-        "illuminate/support": "^5.5",
-        "doctrine/dbal": "^2.5",
-        "pusher/pusher-php-server": "^3.0",
-        "cmgmyr/messenger": "^2.0",
-        "league/fractal": "^0.13.0"
-    },
-    "autoload": {
-        "classmap": [
-            "database"
-        ],
-        "psr-4": {
-            "ReliQArts\\Mardin\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "ReliQArts\\Mardin\\MardinServiceProvider"
-            ],
-            "aliases": {
-                "MardinMessagePolicy": "ReliQArts\\Mardin\\Policies\\MessagePolicy"
-            }
-        }
-    },
-    "minimum-stability": "beta",
-    "prefer-stable": true
+    "psr-4": {
+      "ReliQArts\\Mardin\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ReliQArts\\Mardin\\ServiceProvider"
+      ],
+      "aliases": {
+        "MardinMessagePolicy": "ReliQArts\\Mardin\\Policies\\MessagePolicy"
+      }
+    }
+  },
+  "minimum-stability": "beta",
+  "prefer-stable": true,
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^2.6"
+  }
 }

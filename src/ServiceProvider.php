@@ -5,10 +5,10 @@ namespace ReliQArts\Mardin;
 use Cmgmyr\Messenger\MessengerServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use ReliQArts\Mardin\Helpers\StringHelper;
 
-class MardinServiceProvider extends ServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.

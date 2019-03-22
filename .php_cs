@@ -8,9 +8,10 @@ EOF;
 
 $finder = PhpCsFixer\Finder::create()
     ->exclude([
-        'public',
         'resources',
+        'public',
     ])
+    ->notPath('_ide_helper.php')
     ->in(__DIR__);
 
 $config = PhpCsFixer\Config::create()
@@ -35,7 +36,15 @@ $config = PhpCsFixer\Config::create()
         'explicit_string_variable' => true,
         'final_internal_class' => true,
         'fully_qualified_strict_types' => true,
-        'function_to_constant' => ['functions' => ['get_class', 'get_called_class', 'php_sapi_name', 'phpversion', 'pi']],
+        'function_to_constant' => [
+            'functions' => [
+                'get_class',
+                'get_called_class',
+                'php_sapi_name',
+                'phpversion',
+                'pi',
+            ],
+        ],
         // 'header_comment' => ['header' => $header],
         'heredoc_to_nowdoc' => true,
         'list_syntax' => ['syntax' => 'long'],
@@ -45,7 +54,19 @@ $config = PhpCsFixer\Config::create()
         'multiline_comment_opening_closing' => true,
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
-        'no_extra_blank_lines' => ['tokens' => ['break', 'continue', 'extra', 'return', 'throw', 'use', 'parenthesis_brace_block', 'square_brace_block', 'curly_brace_block']],
+        'no_extra_blank_lines' => [
+            'tokens' => [
+                'break',
+                'continue',
+                'extra',
+                'return',
+                'throw',
+                'use',
+                'parenthesis_brace_block',
+                'square_brace_block',
+                'curly_brace_block',
+            ],
+        ],
         'no_null_property_initialization' => true,
         'no_short_echo_tag' => true,
         'no_superfluous_elseif' => true,
@@ -62,11 +83,16 @@ $config = PhpCsFixer\Config::create()
         'php_unit_ordered_covers' => true,
         'php_unit_set_up_tear_down_visibility' => true,
         'php_unit_strict' => true,
-        'php_unit_test_annotation' => true,
-        'php_unit_test_case_static_method_calls' => ['call_type' => 'this'],
+        'php_unit_test_annotation' => [
+            'style' => 'prefix',
+        ],
+        'php_unit_test_case_static_method_calls' => [
+            'call_type' => 'this',
+        ],
         'php_unit_test_class_requires_covers' => true,
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
+        'phpdoc_to_comment' => false,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         'phpdoc_types_order' => true,
         'return_assignment' => true,
@@ -77,8 +103,7 @@ $config = PhpCsFixer\Config::create()
         'string_line_ending' => true,
         'yoda_style' => false,
     ])
-    ->setFinder($finder)
-;
+    ->setFinder($finder);
 
 // special handling of fabbot.io service if it's using too old PHP CS Fixer version
 if (false !== getenv('FABBOT_IO')) {

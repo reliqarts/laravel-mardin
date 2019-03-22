@@ -1,3 +1,8 @@
 /vendor/
 node_modules
 *cache
+.idea
+.vscode
+.phpunit.result.cache
+.phpstorm.meta.php
+_ide_helper.php
